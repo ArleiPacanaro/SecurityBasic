@@ -20,29 +20,32 @@ Precisa ter o Java17, Maven e Docker Client ou Postgre instalados.
 		</dependency>
    
 2) Incluindo no properties um usuário e senha para o spring security para acessar o recurso que necessita de aunteticação será aberta uma tela solicitando, podendo usar ate o spring cloud.
-
-#spring.security.user.name=arlei
-#spring.security.user.password=102030
+<p></p>
+<p>#spring.security.user.name=arlei</p>
+<p>#spring.security.user.password=102030</p>
+<p></p>
    
 3) criei a pasta security com um bean padrão para informar quais endpoints necessitam ou não de autenticação, esta uma receta de bolo
 Por ser uma configuration e também conter a anotações de EnableWebSecurity o Spring já assumir estas configurações do objeto que representa a classe SecurityFilterChain, aqui a mágica da framework começa a acontecer.
 
-SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(
-                        authorizeConfig -> {
-                             authorizeConfig.requestMatchers("/ativos/buscarTodos").permitAll();
-                             authorizeConfig.requestMatchers("/logout").permitAll();
-                             // Acima permitindo que os endpoints marcados sejam acessados sem autenticação...
-                             authorizeConfig.anyRequest().authenticated();
-                             // aqui configurando que os demais endpoints so devem ser acessados com autemticação
-                         }).oauth2Login(Customizer.withDefaults())
-                // usando uma autenticação básica. agora mudei para oauth2
-                 .build();
-     }
+<p></p>
+<p>SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {</p>
+        <p>return http</p>
+                <p>.authorizeHttpRequests(</p>
+                      <p>  authorizeConfig -> {</p>
+                            <p> authorizeConfig.requestMatchers("/ativos/buscarTodos").permitAll();</p>
+                            <p> authorizeConfig.requestMatchers("/logout").permitAll();</p>
+                            <p> // Acima permitindo que os endpoints marcados sejam acessados sem autenticação...</p>
+                           <p>  authorizeConfig.anyRequest().authenticated();</p>
+                            <p> // aqui configurando que os demais endpoints so devem ser acessados com autemticação</p>
+                         <p>}).oauth2Login(Customizer.withDefaults())</p>
+                // usando uma autenticação básica. agora mudei para oauth2</p>
+                 <p>.build();</p>
+    <p> }</p>
+     <p></p>
    
 Principais Classes e Interfaces do Spring utilizadas: SecurityFilterChain e HttpSecurity
-
+    <p></p>
 Texto interessante sobre o Spring Secutiry:
 
 A segurança de aplicativos é uma preocupação primordial no desenvolvimento
